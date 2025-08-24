@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health organisation app</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>Health tracker</header>
+        <main>
+            <section class="card">
+                <h2>Water Intake</h2>
+                <p>You've had <span id="water-count">0</span> glasses of water today.</p>
+                <button id="log-water-button">Log water</button>
+            </section>
+            <section class="card">
+                <h2>Log a workout you did today!</h2>
+                <input type="text" id="workout-input" placeholder="e.g., 30 min run">
+                <button id="log-workout-button">Log Workout</button>
+                <h3>Today's workouts</h3>
+                <ul id="workout-list"></ul>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
