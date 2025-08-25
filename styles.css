@@ -61,4 +61,19 @@ li {
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 5px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+.delete-button {
+    border: none;
+    background-color: #ff3b30;
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.delete-button:hover {
+    background-color: #c70000;
 }
