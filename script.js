@@ -5,25 +5,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const workoutInput = document.getElementById('workout-input');
     const workoutList = document.getElementById('workout-list');
     setupWaterLogger(logWaterButton, waterCountSpan);
-    setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList)
+    setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList);
 });
 function setupWaterLogger(button, display) {
     let waterCount = 0;
-    logWaterButton.addEventListener('click', () => {
+    button.addEventListener('click', () => {
         waterCount++;
-        waterCountSpan.textContent = waterCount;
+        display.textContent = waterCount;
     })
 }
 function setupWorkoutLogger(button, input, list) {
-    logWorkoutButton.addEventListener('click', () => {
-        const workoutText = workoutInput.value.trim();
+    button.addEventListener('click', () => {
+        const workoutText = input.value.trim();
         if (workoutText !== "") {
-            addWorkoutToList(workoutText)
+            addWorkoutToList(workoutText, list);
             input.value = "";
         }});
 }
-function addWorkoutToList(text) {
-    const newListItem = document.getElementById('li');
+function addWorkoutToList(text, list) {
+    const newListItem = document.createElement('li');
     newListItem.textContent = text;
     list.appendChild(newListItem);
 }
