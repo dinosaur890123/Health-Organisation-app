@@ -4,10 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const logWorkoutButton = document.getElementById('log-workout-button')
     const workoutInput = document.getElementById('workout-input');
     const workoutList = document.getElementById('workout-list');
-    if (!logWaterBtn || !waterCountSpan || !logWorkoutBtn || !workoutInput || !workoutList) {
-        console.error("An element was not found") 
-        return;
-    }
     setupWaterLogger(logWaterButton, waterCountSpan);
     setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList)
 });
