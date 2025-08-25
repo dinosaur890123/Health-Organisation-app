@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const waterGoalInput = document.getElementById('water-goal-input');
     const setGoalButton = document.getElementById('set-goal-button');
     const waterGoalSpan = document.getElementById('water-goal');
-    setupWaterLogger(logWaterButton, waterCountSpan);
+    setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton);
     setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList);
 });
 function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGoalButton) {
