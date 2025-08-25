@@ -31,6 +31,17 @@ input[type="text"] {
     box-sizing: border-box;
     margin-bottom: 10px;
 }
+#log-water-button, #log-workout-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+#log-water-button:hover, #log-workout-button:hover {
+    background-color: #005ecb;
+}
 button {
     border: none;
     color: white;

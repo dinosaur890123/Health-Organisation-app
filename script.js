@@ -24,6 +24,16 @@ function setupWorkoutLogger(button, input, list) {
 }
 function addWorkoutToList(text, list) {
     const newListItem = document.createElement('li');
-    newListItem.textContent = text;
+    const textSpan = document.createElement('span');
+    textSpan.textContent = text;
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = "delete";
+    deleteButton.className = 'delete-button';
+    deleteButton.addEventListener('click', function() {
+        this.parentElement.remove()
+    }
+    )
+    newListItem.appendChild(textSpan);
+    newListItem.appendChild(deleteButton);
     list.appendChild(newListItem);
 }
