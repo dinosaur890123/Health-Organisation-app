@@ -27,7 +27,7 @@ header h1 {
     color: #555;
 }
 input[type="text"] {
-    border: 1px solid #ccc;
+    border: 1px solid #bdbcbc;
     box-sizing: border-box;
     margin-bottom: 10px;
 }
