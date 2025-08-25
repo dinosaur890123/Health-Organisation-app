@@ -77,3 +77,26 @@ li {
 .delete-button:hover {
     background-color: #c70000;
 }
+.goal-setter {
+    display: flex;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+.goal-setter input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+#set-goal-button {
+    border: none;
+    color: white;
+    background-color: #34c759; 
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#set-goal-button:hover {
+    background-color: #2ca049;
+}

@@ -12,7 +12,11 @@
         <main>
             <section class="card">
                 <h2>Water Intake</h2>
-                <p>You've had <span id="water-count">0</span> glasses of water today.</p>
+                <div class="goal-setter">
+                    <input type="number" id="water-goal-input" placeholder="example: 8 glasses" min="1">
+                    <button id="set-goal-button">Set Goal</button>
+                </div>
+                <p>You've had <span id="water-count">0</span> / <span id="water-goal">8</span> glasses of water today.</p>
                 <button id="log-water-button">Log water</button>
             </section>
             <section class="card">
