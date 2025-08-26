@@ -10,6 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton);
     setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList);
 });
+function saveWorkouts() {
+    const workoutList = document.getElementById('workout-list');
+    const workouts = [];
+    workoutList.querySelectorAll('li span').forEach(item => {
+        workouts.push(item.textContent);
+    });
+    localStoreage.setItem('workouts', JSON.stringify(workouts));
+}
 function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGoalButton) {
     let waterCount = 0;
     let waterGoal = 0;
@@ -27,18 +35,25 @@ function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGo
             updateDisplay();
             goalInput.value = '';
         }
-    })
+    });
     logButton.addEventListener('click', () => {
         waterCount++;
+        localStorage.setItem('waterCount', waterCount);
         updateDisplay();       
     })
+    updateDisplay();
 }
 function setupWorkoutLogger(button, input, list) {
+    const savedWorkouts = JSON.parse(localStorage.getItem('workouts')) || [];
+    savedWorkouts.forEach(workoutText => {
+        addWorkoutToList(workoutText, list);
+    })
     button.addEventListener('click', () => {
         const workoutText = input.value.trim();
         if (workoutText !== "") {
             addWorkoutToList(workoutText, list);
             input.value = "";
+            saveWorkouts();
         }});
 }
 function addWorkoutToList(text, list) {
@@ -50,6 +65,7 @@ function addWorkoutToList(text, list) {
     deleteButton.className = 'delete-button';
     deleteButton.addEventListener('click', function() {
         this.parentElement.remove()
+        saveWorkouts();
     }
     )
     newListItem.appendChild(textSpan);
