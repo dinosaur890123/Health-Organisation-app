@@ -16,7 +16,7 @@ function saveWorkouts() {
     workoutList.querySelectorAll('li span').forEach(item => {
         workouts.push(item.textContent);
     });
-    localStoreage.setItem('workouts', JSON.stringify(workouts));
+    localStorage.setItem('workouts', JSON.stringify(workouts));
 }
 function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGoalButton) {
     let waterCount = 0;
