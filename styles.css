@@ -100,3 +100,42 @@ li {
 #set-goal-button:hover {
     background-color: #2ca049;
 }
+.workout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.workout-header h3 {
+    margin: 0;
+}
+#reset-water-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    margin-top: 5px;
+    border: none;
+    background-color: #8e8e93;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#reset-water-button:hover {
+    background-color: #636366;
+}
+#clear-workouts-button {
+    border: none;
+    background-color: #ff9500;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#clear-workouts-button:hover {
+    background-color: #d97e00;
+}

@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const waterGoalInput = document.getElementById('water-goal-input');
     const setGoalButton = document.getElementById('set-goal-button');
     const waterGoalSpan = document.getElementById('water-goal');
+    const resetWaterButton = document.getElementById('reset-water-button');
+    const clearWorkoutsButton = document.getElementById('clear-workouts-button');
     setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton);
     setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList);
 });
@@ -25,7 +27,7 @@ function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGo
         countDisplay.textContent = waterCount;
         goalDisplay.textContent = waterGoal;
         if (waterCount >= waterGoal) {
-            console.log("You reached your goal");
+            console.log("You reached your goal!");
         }
     }
     setGoalButton.addEventListener('click', () => {
@@ -40,6 +42,11 @@ function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGo
         waterCount++;
         localStorage.setItem('waterCount', waterCount);
         updateDisplay();       
+    });
+    resetButton.addEventListener('click', () => {
+        waterCount = 0;
+        localStorage.setItem('waterCount', waterCount);
+        updateDisplay();
     })
     updateDisplay();
 }
@@ -55,6 +62,10 @@ function setupWorkoutLogger(button, input, list) {
             input.value = "";
             saveWorkouts();
         }});
+    clearButton.addEventListener('click', () => {
+        list.innerHTML = '';
+        saveWorkouts();
+    });
 }
 function addWorkoutToList(text, list) {
     const newListItem = document.createElement('li');

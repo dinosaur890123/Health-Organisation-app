@@ -18,12 +18,16 @@
                 </div>
                 <p>You've had <span id="water-count">0</span> / <span id="water-goal">8</span> glasses of water today.</p>
                 <button id="log-water-button">Log water</button>
+                <button id="reset-water-button">Reset count</button>
             </section>
             <section class="card">
                 <h2>Log a workout you did today!</h2>
                 <input type="text" id="workout-input" placeholder="e.g., 30 min run">
                 <button id="log-workout-button">Log Workout</button>
-                <h3>Today's workouts</h3>
+                <div class="workout-header">
+                    <h3>Today's workouts</h3>
+                    <button id="clear-workout-button">Clear all</button>
+                </div>
                 <ul id="workout-list"></ul>
             </section>
         </main>
