@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const notesArea = document.getElementById('daily-notes-area');
     const saveNotesButton = document.getElementById('save-notes-button');
     const waterProgressText = document.getElementById('water-progress-text');
-    setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton);
-    setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList);
+    setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton, resetWaterButton, waterProgressText);
+    setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList, clearWorkoutsButton);
     setupNotesSection(notesArea, saveNotesButton);
-        setupCalorieTracker(foodItemInput, calorieInput, logCalorieButton, totalCaloriesSpan, calorieList, clearCaloriesButton);
+    setupCalorieTracker(foodItemInput, calorieInput, logCalorieButton, totalCaloriesSpan, calorieList, clearCaloriesButton);
 });
 function saveWorkouts() {
     const workoutList = document.getElementById('workout-list');
@@ -26,8 +26,8 @@ function saveWorkouts() {
     localStorage.setItem('workouts', JSON.stringify(workouts));
 }
 function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGoalButton) {
-    let waterCount = 0;
-    let waterGoal = 0;
+    let waterCount = parseInt(localStorage.getItem('waterCount')) || 0;
+    let waterGoal = parseInt(localStorage.getItem('waterGoal')) || 8;
     function updateDisplay() {
         countDisplay.textContent = waterCount;
         goalDisplay.textContent = waterGoal;
@@ -42,6 +42,7 @@ function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGo
         const newGoal = parseInt(goalInput.value);
         if (newGoal && newGoal > 0) {
             waterGoal = newGoal;
+            localStorage.setItem('waterGoal', waterGoal);
             updateDisplay();
             goalInput.value = '';
         }
