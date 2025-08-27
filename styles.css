@@ -1,3 +1,24 @@
+:root {
+    --background-color: #f0f2f5;
+    --card-background: #ffffff;
+    --text-color: #333;
+    --header-color: #1c1c1e;
+    --secondary-text-color: #555;
+    --border-color: #e5e5e5;
+    --list-item-background: #f9f9f9;
+    --input-border-color: #ccc;
+}
+body.dark-mode {
+    --background-color: #1c1c1e;
+    --card-background: #2c2c2e;
+    --text-color: #ffffff;
+    --header-color: #ffffff;
+    --secondary-text-color: #c7c7cc;
+    --border-color: #444446;
+    --list-item-background: #3a3a3c;
+    --input-border-color: #545458;
+}
+
 body {
     font-family: Calibri;
     background-color: #f0f2f5;

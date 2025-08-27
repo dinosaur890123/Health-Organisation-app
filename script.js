@@ -18,11 +18,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalCaloriesSpan = document.getElementById('total-calories');
     const calorieList = document.getElementById('calorie-list');
     const clearCaloriesButton = document.getElementById('clear-calories-button');
+    const themeSwitcherButton = document.getElementById('theme-switcher-button');
     setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton, resetWaterButton, waterProgressText);
     setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList, clearWorkoutsButton);
     setupNotesSection(notesArea, saveNotesButton);
     setupCalorieTracker(foodItemInput, calorieInput, logCalorieButton, totalCaloriesSpan, calorieList, clearCaloriesButton);
+    setupThemeSwitcher(themeSwitcherButton);
 });
+function setupThemeSwitcher(button) {
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+    button.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        let theme = 'light';
+        if (document.body.classList.contains('dark-mode')) {
+            theme = 'dark';
+        }
+        localStorage.setItem('theme', theme);
+    });
+}
 function saveWorkouts() {
     const workoutList = document.getElementById('workout-list');
     const workouts = [];
