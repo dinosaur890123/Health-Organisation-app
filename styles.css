@@ -139,3 +139,91 @@ li {
 #clear-workouts-button:hover {
     background-color: #d97e00;
 }
+#daily-notes-area {
+    width: 100%;
+    min-height: 120px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-family: inherit; 
+    resize: vertical;
+}
+#save-notes-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    border: none;
+    background-color: #5856d6;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#save-notes-button:hover {
+    background-color: #3d3b9e;
+}
+.goal-reached {
+    color: #34c759;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+.calorie-inputs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.calorie-inputs input[type="text"] {
+    flex-grow: 1;
+    margin: 0;
+}
+.calorie-inputs input[type="number"] {
+    width: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+#log-calorie-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    border: none;
+    background-color: #007aff;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-bottom: 10px;
+}
+#log-calorie-button:hover {
+    background-color: #005ecb;
+}
+.calorie-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.calorie-header h3 {
+    margin: 0;
+}
+#clear-categories-button {
+    border: none;
+    background-color: #ff8c37;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#clear-calories-button:hover {
+    background-color: #d97e00;
+}

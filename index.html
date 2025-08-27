@@ -16,7 +16,7 @@
                     <input type="number" id="water-goal-input" placeholder="example: 8 glasses" min="1">
                     <button id="set-goal-button">Set Goal</button>
                 </div>
-                <p>You've had <span id="water-count">0</span> / <span id="water-goal">8</span> glasses of water today.</p>
+                <p id ="water-progress-text">You've had <span id="water-count">0</span> / <span id="water-goal">8</span> glasses of water today.</p>
                 <button id="log-water-button">Log water</button>
                 <button id="reset-water-button">Reset count</button>
             </section>
@@ -29,6 +29,25 @@
                     <button id="clear-workout-button">Clear all</button>
                 </div>
                 <ul id="workout-list"></ul>
+            </section>
+            <section class="card">
+                <h2>Calorie tracker</h2>
+                <div class="calorie-input">
+                    <input type="text" id="food-item-input" placeholder="apple, banana, etc">
+                    <input type="number" id="calorie-input" placeholder="example: 100 etc">
+                </div>
+                <button id="log-calorie-button">Log Food</button>
+                <div class="calorie-header">
+                    <h3>Today's food</h3>
+                    <button id="clear-calories-button">Clear all</button>
+                </div>
+                <p>Total Calories: <span id="total-calories">0</span></p>
+                <ul id="calorie-list"></ul>
+            </section>
+            <section class="card">
+                <h2>Daily Notes</h2>
+                <textarea id="daily-notes-area" placeholder="How are you feeling today? do you want to note something down?"></textarea>
+                <button id="save-notes-button">Save Notes</button>
             </section>
         </main>
     </div>
