@@ -12,6 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const notesArea = document.getElementById('daily-notes-area');
     const saveNotesButton = document.getElementById('save-notes-button');
     const waterProgressText = document.getElementById('water-progress-text');
+    const foodItemInput = document.getElementById('food-item-input');
+    const calorieInput = document.getElementById('calorie-input');
+    const logCalorieButton = document.getElementById('log-calorie-button');
+    const totalCaloriesSpan = document.getElementById('total-calories');
+    const calorieList = document.getElementById('calorie-list');
+    const clearCaloriesButton = document.getElementById('clear-calories-button');
     setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton, resetWaterButton, waterProgressText);
     setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList, clearWorkoutsButton);
     setupNotesSection(notesArea, saveNotesButton);
@@ -25,7 +31,7 @@ function saveWorkouts() {
     });
     localStorage.setItem('workouts', JSON.stringify(workouts));
 }
-function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGoalButton) {
+function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGoalButton, resetButton, progressText) {
     let waterCount = parseInt(localStorage.getItem('waterCount')) || 0;
     let waterGoal = parseInt(localStorage.getItem('waterGoal')) || 8;
     function updateDisplay() {
@@ -59,7 +65,7 @@ function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGo
     })
     updateDisplay();
 }
-function setupWorkoutLogger(button, input, list) {
+function setupWorkoutLogger(button, input, list, clearBuutton) {
     const savedWorkouts = JSON.parse(localStorage.getItem('workouts')) || [];
     savedWorkouts.forEach(workoutText => {
         addWorkoutToList(workoutText, list);
@@ -133,7 +139,7 @@ function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, li
     logButton.addEventListener('click', () => {
         const foodName = foodInput.value.trim();
         const calories = parseInt(calInput.value);
-        if (foodName && calories > 0) {
+        if (foodName && calories >= 0) {
             foodItems.push({name: foodName, calories: calories});
             foodInput.value = '';
             calInput.value = '';
