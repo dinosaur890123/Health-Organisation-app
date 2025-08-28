@@ -81,7 +81,7 @@ function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGo
     })
     updateDisplay();
 }
-function setupWorkoutLogger(button, input, list, clearBuutton) {
+function setupWorkoutLogger(button, input, list, clearButton) {
     const savedWorkouts = JSON.parse(localStorage.getItem('workouts')) || [];
     savedWorkouts.forEach(workoutText => {
         addWorkoutToList(workoutText, list);

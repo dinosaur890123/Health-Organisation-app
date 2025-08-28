@@ -7,7 +7,10 @@
     --border-color: #e5e5e5;
     --list-item-background: #f9f9f9;
     --input-border-color: #ccc;
+    --primary-button-bg: #007aff;
+    --primary-button-hover: #005ecb;
 }
+
 body.dark-mode {
     --background-color: #1c1c1e;
     --card-background: #2c2c2e;
@@ -20,134 +23,124 @@ body.dark-mode {
 }
 
 body {
-    font-family: Calibri;
-    background-color: #f0f2f5;
-    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
     margin: 0;
+    transition: background-color 0.3s, color 0.3s;
 }
+
 .container {
-    background-color: white;
-    border-radius: 12px;
     padding: 20px;
 }
-header h1 {
-    text-align: center;
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--header-color);
     margin-bottom: 20px;
-    color: #1c1c1e;
 }
+
 .card {
+    background-color: var(--card-background);
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #e5e5e5;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s, border-color 0.3s;
 }
+
 .card h2 {
     margin-top: 0;
     font-size: 1.2em;
-    color: #555;
+    color: var(--secondary-text-color);
 }
-input[type="text"] {
-    border: 1px solid #bdbcbc;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-#log-water-button, #log-workout-button {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 1em;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-#log-water-button:hover, #log-workout-button:hover {
-    background-color: #005ecb;
-}
-button {
-    border: none;
-    color: white;
-    background-color: #007aff;
-    cursor: pointer;
-    font-weight: 500;
-}
-button:hover {
-    background-color: #0358ba;
-}
+
 ul {
     list-style-type: none;
     padding: 0;
 }
+
 li {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 5px;
-    justify-content: space-between;
-    display: flex;
-    align-items: center;
-}
-.delete-button {
-    border: none;
-    background-color: #ff3b30;
-    color: white;
-    padding: 5px 10px;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-.delete-button:hover {
-    background-color: #c70000;
-}
-.goal-setter {
-    display: flex;
-    margin-bottom: 15px;
-    gap: 10px;
-}
-.goal-setter input {
-    flex-grow: 1;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-#set-goal-button {
-    border: none;
-    color: white;
-    background-color: #34c759; 
+    background-color: var(--list-item-background);
     padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-#set-goal-button:hover {
-    background-color: #2ca049;
-}
-.workout-header {
+    border-radius: 4px;
+    margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
 }
-.workout-header h3 {
-    margin: 0;
-}
-#reset-water-button {
+
+input[type="text"],
+input[type="number"],
+#daily-notes-area {
     width: 100%;
     padding: 12px;
     border-radius: 6px;
     font-size: 1em;
     box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid var(--input-border-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: inherit;
+}
+
+#daily-notes-area {
+    min-height: 120px;
+    resize: vertical;
+}
+
+#log-water-button,
+#log-workout-button,
+#log-calorie-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    border: none;
+    background-color: var(--primary-button-bg);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#log-water-button:hover,
+#log-workout-button:hover,
+#log-calorie-button:hover {
+    background-color: var(--primary-button-hover);
+}
+
+#set-goal-button {
+    border: none;
+    background-color: #34c759;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#reset-water-button {
+    width: 100%;
+    padding: 12px;
     margin-top: 5px;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
     border: none;
     background-color: #8e8e93;
     color: white;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
-#reset-water-button:hover {
-    background-color: #636366;
-}
-#clear-workouts-button {
+
+#clear-workouts-button,
+#clear-calories-button {
     border: none;
     background-color: #ff9500;
     color: white;
@@ -155,23 +148,8 @@ li {
     border-radius: 5px;
     font-size: 0.9em;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
-#clear-workouts-button:hover {
-    background-color: #d97e00;
-}
-#daily-notes-area {
-    width: 100%;
-    min-height: 120px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1em;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    font-family: inherit; 
-    resize: vertical;
-}
+
 #save-notes-button {
     width: 100%;
     padding: 12px;
@@ -183,48 +161,39 @@ li {
     color: white;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
-#save-notes-button:hover {
-    background-color: #3d3b9e;
-}
-.goal-reached {
-    color: #34c759;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-.calorie-inputs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-.calorie-inputs input[type="text"] {
-    flex-grow: 1;
-    margin: 0;
-}
-.calorie-inputs input[type="number"] {
-    width: 80px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-#log-calorie-button {
-    width: 100%;
-    padding: 12px;
-    border-radius: 6px;
-    font-size: 1em;
-    box-sizing: border-box;
+
+.delete-button {
     border: none;
-    background-color: #007aff;
+    background-color: #ff3b30;
     color: white;
-    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
     cursor: pointer;
-    transition: background-color 0.2s;
-    margin-bottom: 10px;
 }
-#log-calorie-button:hover {
-    background-color: #005ecb;
+
+#theme-switcher-button {
+    border: none;
+    background-color: #8e8e93;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    cursor: pointer;
 }
+
+.goal-setter {
+    display: flex;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.goal-setter input {
+    flex-grow: 1;
+}
+
+.workout-header,
 .calorie-header {
     display: flex;
     justify-content: space-between;
@@ -232,19 +201,29 @@ li {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
+.workout-header h3,
 .calorie-header h3 {
     margin: 0;
 }
-#clear-categories-button {
-    border: none;
-    background-color: #ff8c37;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: background-color 0.2s;
+
+.calorie-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
 }
-#clear-calories-button:hover {
-    background-color: #d97e00;
+
+.calorie-input input[type="text"] {
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+
+.calorie-input input[type="number"] {
+    width: 100px;
+}
+
+.goal-reached {
+    color: #34c759;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
