@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const calorieList = document.getElementById('calorie-list');
     const clearCaloriesButton = document.getElementById('clear-calories-button');
     const themeSwitcherButton = document.getElementById('theme-switcher-button');
+    const calorieGoalInput = document.getElementById('calorie-goal-input');
+    const setCalorieGoalButton = document.getElementById('set-calorie-goal-button');
+    const calorieGoalSpan = document.getElementById('calorie-goal');
+    const calorieProgressText = document.getElementById('calorie-progress-text');
     setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton, resetWaterButton, waterProgressText);
     setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList, clearWorkoutsButton);
     setupNotesSection(notesArea, saveNotesButton);
@@ -122,16 +126,26 @@ function setupNotesSection(textarea, saveButton) {
         alert('Notes saved');
     })
 };
-function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, list, clearButton) {
+function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, list, clearButton, goalInput, setGoalButton, goalDisplay, progressText) {
     let foodItems = JSON.parse(localStorage.getItem('foodItems')) || [];
-    function updateTotalCalories() {
+    let calorieGoal = parseInt(localStorage.getItem('calorieGoal')) || 2000;
+
+    function updateDisplay() {
         const total = foodItems.reduce((sum, item) => sum + item.calories, 0);
         totalCalDisplay.textContent = total;
-        return total;
+        goalDisplay.textContent = calorieGoal;
+
+        if (total >= calorieGoal && calorieGoal > 0) {
+            progressText.classList.add('goal-reached');
+        } else {
+            progressText.classList.remove('goal-reached');
+        }
     }
+
     function saveFoodItems() {
         localStorage.setItem('foodItems', JSON.stringify(foodItems));
     }
+
     function renderFoodList() {
         list.innerHTML = '';
         foodItems.forEach((food, index) => {
@@ -150,8 +164,17 @@ function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, li
             newListItem.appendChild(deleteButton);
             list.appendChild(newListItem);
         });
-    updateTotalCalories();
+        updateDisplay();
     }
+    setGoalButton.addEventListener('click', () => {
+        const newGoal = parseInt(goalInput.value);
+        if (newGoal && newGoal > 0) {
+            calorieGoal = newGoal;
+            localStorage.setItem('calorieGoal', calorieGoal);
+            updateDisplay();
+            goalInput.value = '';
+        }
+    });
     logButton.addEventListener('click', () => {
         const foodName = foodInput.value.trim();
         const calories = parseInt(calInput.value);

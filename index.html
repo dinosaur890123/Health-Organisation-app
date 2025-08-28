@@ -35,6 +35,10 @@
             </section>
             <section class="card">
                 <h2>Calorie tracker</h2>
+                <div class="goal-setter">
+                    <input type="number" id="calorie-goal-input" placeholder="2000 kcal" min="1">
+                    <button id="set-calorie-goal-button">Set goal</button>
+                </div>
                 <div class="calorie-input">
                     <input type="text" id="food-item-input" placeholder="apple, banana, etc">
                     <input type="number" id="calorie-input" placeholder="example: 100 etc">
@@ -44,7 +48,7 @@
                     <h3>Today's food</h3>
                     <button id="clear-calories-button">Clear all</button>
                 </div>
-                <p>Total Calories: <span id="total-calories">0</span></p>
+                <p id="calorie-progress-text">Total Calories: <span id="total-calories">0</span> / <span id="calorie-goal">2000</span></p>
                 <ul id="calorie-list"></ul>
             </section>
             <section class="card">
