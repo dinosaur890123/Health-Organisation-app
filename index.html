@@ -19,6 +19,9 @@
                     <input type="number" id="water-goal-input" placeholder="example: 8 glasses" min="1">
                     <button id="set-goal-button">Set Goal</button>
                 </div>
+                <div class="progress-bar-container">
+                    <div id="water-progress-bar" class="progress-bar-fill"></div>
+                </div>
                 <p id ="water-progress-text">You've had <span id="water-count">0</span> / <span id="water-goal">8</span> glasses of water today.</p>
                 <button id="log-water-button">Log water</button>
                 <button id="reset-water-button">Reset count</button>
@@ -47,6 +50,9 @@
                 <div class="calorie-header">
                     <h3>Today's food</h3>
                     <button id="clear-calories-button">Clear all</button>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="calorie-progress-bar" class="progress-bar-fill"></div>
                 </div>
                 <p id="calorie-progress-text">Total Calories: <span id="total-calories">0</span> / <span id="calorie-goal">2000</span></p>
                 <ul id="calorie-list"></ul>

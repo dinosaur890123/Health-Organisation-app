@@ -23,12 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const setCalorieGoalButton = document.getElementById('set-calorie-goal-button');
     const calorieGoalSpan = document.getElementById('calorie-goal');
     const calorieProgressText = document.getElementById('calorie-progress-text');
-    setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton, resetWaterButton, waterProgressText);
+    const waterProgressBar = document.getElementById('water-progress-bar');
+    const calorieProgressBar = document.getElementById('calorie-progress-bar');   
+    setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton, resetWaterButton, waterProgressText, waterProgressBar);
     setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList, clearWorkoutsButton);
     setupNotesSection(notesArea, saveNotesButton);
-    setupCalorieTracker(foodItemInput, calorieInput, logCalorieButton, totalCaloriesSpan, calorieList, clearCaloriesButton);
+    setupCalorieTracker(foodItemInput, calorieInput, logCalorieButton, totalCaloriesSpan, calorieList, clearCaloriesButton, calorieGoalInput, setCalorieGoalButton, calorieGoalSpan, calorieProgressText, calorieProgressBar);
     setupThemeSwitcher(themeSwitcherButton);
 });
+
 function setupThemeSwitcher(button) {
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme === 'dark') {
@@ -43,6 +46,7 @@ function setupThemeSwitcher(button) {
         localStorage.setItem('theme', theme);
     });
 }
+
 function saveWorkouts() {
     const workoutList = document.getElementById('workout-list');
     const workouts = [];
@@ -51,12 +55,15 @@ function saveWorkouts() {
     });
     localStorage.setItem('workouts', JSON.stringify(workouts));
 }
-function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGoalButton, resetButton, progressText) {
+
+function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGoalButton, resetButton, progressText, progressBar) {
     let waterCount = parseInt(localStorage.getItem('waterCount')) || 0;
     let waterGoal = parseInt(localStorage.getItem('waterGoal')) || 8;
     function updateDisplay() {
         countDisplay.textContent = waterCount;
         goalDisplay.textContent = waterGoal;
+        const progressPercent = Math.min((waterCount / waterGoal) * 100, 100);
+        progressBar.style.width = `${progressPercent}%`;
         if (waterCount >= waterGoal && waterGoal > 0) {
             progressText.classList.add('goal-reached');
         }
@@ -85,6 +92,7 @@ function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGo
     })
     updateDisplay();
 }
+
 function setupWorkoutLogger(button, input, list, clearButton) {
     const savedWorkouts = JSON.parse(localStorage.getItem('workouts')) || [];
     savedWorkouts.forEach(workoutText => {
@@ -102,6 +110,7 @@ function setupWorkoutLogger(button, input, list, clearButton) {
         saveWorkouts();
     });
 }
+
 function addWorkoutToList(text, list) {
     const newListItem = document.createElement('li');
     const textSpan = document.createElement('span');
@@ -126,26 +135,24 @@ function setupNotesSection(textarea, saveButton) {
         alert('Notes saved');
     })
 };
-function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, list, clearButton, goalInput, setGoalButton, goalDisplay, progressText) {
+function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, list, clearButton, goalInput, setGoalButton, goalDisplay, progressText, progressBar) {
     let foodItems = JSON.parse(localStorage.getItem('foodItems')) || [];
     let calorieGoal = parseInt(localStorage.getItem('calorieGoal')) || 2000;
-
     function updateDisplay() {
         const total = foodItems.reduce((sum, item) => sum + item.calories, 0);
         totalCalDisplay.textContent = total;
         goalDisplay.textContent = calorieGoal;
-
+        const progressPercent = Math.min((total / calorieGoal) * 100, 100);
+        progressBar.style.width = `${progressPercent}%`;
         if (total >= calorieGoal && calorieGoal > 0) {
             progressText.classList.add('goal-reached');
         } else {
             progressText.classList.remove('goal-reached');
         }
     }
-
     function saveFoodItems() {
         localStorage.setItem('foodItems', JSON.stringify(foodItems));
     }
-
     function renderFoodList() {
         list.innerHTML = '';
         foodItems.forEach((food, index) => {
