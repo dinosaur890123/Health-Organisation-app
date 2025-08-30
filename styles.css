@@ -242,3 +242,24 @@ input[type="number"],
     border-radius: 8px;
     transition: width 0.3s ease-in-out;
 }
+.mood-options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+.mood-button {
+    font-size: 2em;
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+    line-height: 1;
+}
+.mood-button:hover {
+    transform: scale(1.1);
+}
+.mood-button.selected {
+    border-color: var(--primary-button-bg);
+}

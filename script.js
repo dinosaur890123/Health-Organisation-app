@@ -24,12 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const calorieGoalSpan = document.getElementById('calorie-goal');
     const calorieProgressText = document.getElementById('calorie-progress-text');
     const waterProgressBar = document.getElementById('water-progress-bar');
-    const calorieProgressBar = document.getElementById('calorie-progress-bar');   
+    const calorieProgressBar = document.getElementById('calorie-progress-bar');
+    const sleepDisplay = document.getElementById('sleep-display');
+    const logSleepButton = document.getElementById('log-sleep-button');
+    const sleepInput = document.getElementById('sleep-input');
     setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton, resetWaterButton, waterProgressText, waterProgressBar);
     setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList, clearWorkoutsButton);
     setupNotesSection(notesArea, saveNotesButton);
     setupCalorieTracker(foodItemInput, calorieInput, logCalorieButton, totalCaloriesSpan, calorieList, clearCaloriesButton, calorieGoalInput, setCalorieGoalButton, calorieGoalSpan, calorieProgressText, calorieProgressBar);
     setupThemeSwitcher(themeSwitcherButton);
+    setupSleepTracker(sleepInput, logSleepButton, sleepDisplay);
+    setupMoodTracker(moodOptions, moodDisplay)
 });
 
 function setupThemeSwitcher(button) {
@@ -199,4 +204,42 @@ function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, li
         saveFoodItems();
     });
     renderFoodList();
+}
+function setupSleepTracker(input, logButton, display) {
+    let sleepHours = parseFloat(localStorage.getItem('sleepHours')) || 0;
+    function updateDisplay() {
+        display.textContent = sleepHours;
+    }
+    logButton.addEventListener('click', () => {
+        const hours = parseFloat(input.value);
+        if (hours >= 0) {
+            sleepHours = hours;
+            localStorage.setItem('sleepHours', sleepHours);
+            updateDisplay();
+            input.value = '';
+        }
+    });
+    updateDisplay();
+}
+function setupMoodTracker(optionsContainer, display) {
+    let currentMood = localStorage.getItem('dailyMood') || 'Not logged';
+    function updateDisplay() {
+        display.textContent = currentMood;
+        optionsContainer.querySelectorAll('.mood-button').forEach(btn => {
+            if (btn.dataset.mood === currentMood) {
+                btn.classList.add('selected');
+            } else {
+                btn.classList.remove('selected');
+            }
+        });
+    }
+    optionsContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('mood-button')) {
+            const selectedMood = e.target.dataset.mood;
+            currentMood = selectedMood;
+            localStorage.setItem('dailyMood', currentMood);
+            updateDisplay();
+        }
+    });
+    updateDisplay();
 }

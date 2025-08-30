@@ -58,9 +58,24 @@
                 <ul id="calorie-list"></ul>
             </section>
             <section class="card">
-                <h2>Daily Notes</h2>
+                <h2>Daily Notes and MOod</h2>
+                <p></p>
+                <div class="mood-options">
+                    <button class="mood-button" data-mood="Happy">Happy</button>
+                    <button class="mood-button" data-mood="Neural">Neutral</button>
+                    <button class="mood-button" data-mood="Sad">Sad</button>
+                    <button class="mood-button" data-mood="Excited">Excited</button>
+                    <button class="mood-button" data-mood="Tired">Tired</button>
+                </div>
+                <p>Today's mood: <span id="mood-display">Not logged</span></p>
                 <textarea id="daily-notes-area" placeholder="How are you feeling today? do you want to note something down?"></textarea>
                 <button id="save-notes-button">Save Notes</button>
+            </section>
+            <section class="card">
+                <h2>Sleep Tracker</h2>
+                <input type="number" id="sleep-input" placeholder="Hours slept" min="0">
+                <button id="log-sleep-button">Log Sleep</button>
+                <p>You slept <span id="sleep-display">0</span> hours. </p>
             </section>
         </main>
     </div>
