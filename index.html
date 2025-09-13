@@ -10,29 +10,29 @@
     <div class="container">
         <header>
             <span id="greeting">Health tracker</span>
-            <button id="theme-switcher-button">Change theme</button>
+            <button id="theme-switcher-button" class="button button--neutral">Change theme</button>
         </header>
         <main>
             <section class="card">
                 <h2>Water Intake</h2>
                 <div class="goal-setter">
                     <input type="number" id="water-goal-input" placeholder="example: 8 glasses" min="1">
-                    <button id="set-goal-button">Set Goal</button>
+                    <button id="set-goal-button" class="button button--success">Set Goal</button>
                 </div>
                 <div class="progress-bar-container">
                     <div id="water-progress-bar" class="progress-bar-fill"></div>
                 </div>
                 <p id ="water-progress-text">You've had <span id="water-count">0</span> / <span id="water-goal">8</span> glasses of water today.</p>
-                <button id="log-water-button">Log water</button>
-                <button id="reset-water-button">Reset count</button>
+                <button id="log-water-button" class="button button--primary button--block">Log water</button>
+                <button id="reset-water-button" class="button button--neutral button--block">Reset count</button>
             </section>
             <section class="card">
                 <h2>Log a workout you did today!</h2>
                 <input type="text" id="workout-input" placeholder="e.g., 30 min run">
-                <button id="log-workout-button">Log Workout</button>
+                <button id="log-workout-button" class="button button--primary">Log Workout</button>
                 <div class="workout-header">
                     <h3>Today's workouts</h3>
-                    <button id="clear-workouts-button">Clear all</button>
+                    <button id="clear-workouts-button" class="button button--warning">Clear all</button>
                 </div>
                 <ul id="workout-list"></ul>
             </section>
@@ -40,16 +40,16 @@
                 <h2>Calorie tracker</h2>
                 <div class="goal-setter">
                     <input type="number" id="calorie-goal-input" placeholder="2000 kcal" min="1">
-                    <button id="set-calorie-goal-button">Set goal</button>
+                    <button id="set-calorie-goal-button" class="button button--success">Set goal</button>
                 </div>
                 <div class="calorie-input">
                     <input type="text" id="food-item-input" placeholder="apple, banana, etc">
-                    <input type="number" id="calorie-input" placeholder="example: 100 etc">
+                    <input type="number" id="calorie-input" placeholder="100, 200 etc">
                 </div>
-                <button id="log-calorie-button">Log Food</button>
+                <button id="log-calorie-button" class="button button--primary">Log Food</button>
                 <div class="calorie-header">
                     <h3>Today's food</h3>
-                    <button id="clear-calories-button">Clear all</button>
+                    <button id="clear-calories-button" class="button button--warning">Clear all</button>
                 </div>
                 <div class="progress-bar-container">
                     <div id="calorie-progress-bar" class="progress-bar-fill"></div>
@@ -69,12 +69,12 @@
                 </div>
                 <p>Today's mood: <span id="mood-display">Not logged</span></p>
                 <textarea id="daily-notes-area" placeholder="How are you feeling today? do you want to note something down?"></textarea>
-                <button id="save-notes-button">Save Notes</button>
+                <button id="save-notes-button" class="button button--accent button--block">Save Notes</button>
             </section>
             <section class="card">
                 <h2>Sleep Tracker</h2>
                 <input type="number" id="sleep-input" placeholder="Hours slept" min="0">
-                <button id="log-sleep-button">Log Sleep</button>
+                <button id="log-sleep-button" class="button button--primary">Log Sleep</button>
                 <p>You slept <span id="sleep-display">0</span> hours. </p>
             </section>
         </main>

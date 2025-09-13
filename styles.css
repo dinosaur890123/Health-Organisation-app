@@ -21,7 +21,58 @@ body.dark-mode {
     --list-item-background: #3a3a3c;
     --input-border-color: #545458;
 }
-
+/* Button system: use .button plus modifier classes (.button--primary, --success, --warning, --neutral, --accent, --danger, --block). 
+    Old per-ID button styles removed below to keep sizing & spacing consistent. */
+.button {
+    --btn-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--btn-height);
+    padding: 0 16px;
+    font: inherit;
+    font-size: 1rem;
+    line-height: 1;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    box-sizing: border-box;
+    gap: .5rem;
+    transition: background-color .2s, border-color .2s;
+}
+.button--block {
+    width: 100%;
+    display: flex;
+}
+.button--primary {
+    background: var(--primary-button-bg);
+    color: white;
+}
+.button--primary:hover {background: var(--primary-button-hover);}
+.button--success {
+    background:#34c759;
+    color:white;
+}
+.button--warning {
+    background:#ff9500;
+    color:white;
+}
+.button--neutral {
+    background:#8e8e93;
+    color:white;
+}
+.button--accent {
+    background:#5856d6;
+    color:white;
+}
+.button--danger {
+    background:#ff3b30;
+    color:white;
+}
+.button-row {
+    display:flex;
+    gap:10px;
+}
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--background-color);
@@ -92,95 +143,6 @@ input[type="number"],
 #daily-notes-area {
     min-height: 120px;
     resize: vertical;
-}
-
-#log-water-button,
-#log-workout-button,
-#log-calorie-button {
-    width: 100%;
-    padding: 12px;
-    border-radius: 6px;
-    font-size: 1em;
-    box-sizing: border-box;
-    border: none;
-    background-color: var(--primary-button-bg);
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-#log-water-button:hover,
-#log-workout-button:hover,
-#log-calorie-button:hover {
-    background-color: var(--primary-button-hover);
-}
-
-#set-goal-button {
-    border: none;
-    background-color: #34c759;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-#reset-water-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    border-radius: 6px;
-    font-size: 1em;
-    box-sizing: border-box;
-    border: none;
-    background-color: #8e8e93;
-    color: white;
-    cursor: pointer;
-}
-
-#clear-workouts-button,
-#clear-calories-button {
-    border: none;
-    background-color: #ff9500;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 0.9em;
-    cursor: pointer;
-}
-
-#save-notes-button {
-    width: 100%;
-    padding: 12px;
-    border-radius: 6px;
-    font-size: 1em;
-    box-sizing: border-box;
-    border: none;
-    background-color: #5856d6;
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.delete-button {
-    border: none;
-    background-color: #ff3b30;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.9em;
-    cursor: pointer;
-}
-
-#theme-switcher-button {
-    border: none;
-    background-color: #8e8e93;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 0.8em;
-    cursor: pointer;
 }
 
 .goal-setter {
