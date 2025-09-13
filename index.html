@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <header>
-            <span>Health tracker</span>
+            <span id="greeting">Health tracker</span>
             <button id="theme-switcher-button">Change theme</button>
         </header>
         <main>
@@ -58,11 +58,11 @@
                 <ul id="calorie-list"></ul>
             </section>
             <section class="card">
-                <h2>Daily Notes and MOod</h2>
+                <h2>Daily Notes and Mood</h2>
                 <p></p>
                 <div class="mood-options">
                     <button class="mood-button" data-mood="Happy">Happy</button>
-                    <button class="mood-button" data-mood="Neural">Neutral</button>
+                    <button class="mood-button" data-mood="Neutral">Neutral</button>
                     <button class="mood-button" data-mood="Sad">Sad</button>
                     <button class="mood-button" data-mood="Excited">Excited</button>
                     <button class="mood-button" data-mood="Tired">Tired</button>
@@ -79,6 +79,8 @@
             </section>
         </main>
     </div>
+    <div id="toast-notification" class="toast">Notes saved</div>
+    <canvas id="confetti-canvas"></canvas>
     <script src="script.js"></script>
 </body>
 </html>

@@ -28,15 +28,103 @@ document.addEventListener('DOMContentLoaded', () => {
     const sleepDisplay = document.getElementById('sleep-display');
     const logSleepButton = document.getElementById('log-sleep-button');
     const sleepInput = document.getElementById('sleep-input');
-    setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton, resetWaterButton, waterProgressText, waterProgressBar);
+    const moodOptions = document.querySelector('.mood-options');
+    const moodDisplay = document.getElementById('mood-display');
+    const toastNotification = document.getElementById('toast-notification');
+    const greetingSpan = document.getElementById('greeting');
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    let triggerConfetti = () => {};
+    if (confettiCanvas) {
+        triggerConfetti = setupConfetti(confettiCanvas);
+    }
+    setupWaterLogger(logWaterButton, waterCountSpan, waterGoalSpan, waterGoalInput, setGoalButton, resetWaterButton, waterProgressText, waterProgressBar, triggerConfetti);
     setupWorkoutLogger(logWorkoutButton, workoutInput, workoutList, clearWorkoutsButton);
-    setupNotesSection(notesArea, saveNotesButton);
-    setupCalorieTracker(foodItemInput, calorieInput, logCalorieButton, totalCaloriesSpan, calorieList, clearCaloriesButton, calorieGoalInput, setCalorieGoalButton, calorieGoalSpan, calorieProgressText, calorieProgressBar);
+    setupNotesSection(notesArea, saveNotesButton, toastNotification);
+    setupCalorieTracker(foodItemInput, calorieInput, logCalorieButton, totalCaloriesSpan, calorieList, clearCaloriesButton, calorieGoalInput, setCalorieGoalButton, calorieGoalSpan, calorieProgressText, calorieProgressBar, triggerConfetti);
     setupThemeSwitcher(themeSwitcherButton);
     setupSleepTracker(sleepInput, logSleepButton, sleepDisplay);
-    setupMoodTracker(moodOptions, moodDisplay)
+    setupMoodTracker(moodOptions, moodDisplay);
+    setupGreeting(greetingSpan);
 });
-
+function setupGreeting(greetingElement) {
+    const now = new Date();
+    const hour = now.getHours();
+    let greeting;
+    if (hour < 12) {
+        greeting = 'Good morning';
+    } else if (hour < 18) {
+        greeting = 'Good afternoon';
+    } else {
+        greeting = 'Good evening'
+    }
+    greetingElement.textContent = greeting;
+}
+function setupConfetti(canvas) {
+    const ctx = canvas.getContext('2d');
+    let pieces = [];
+    let animationFrameId;
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    function createPieces() {
+        const pieceCount = 150;
+        pieces = [];
+        for (let i = 0; i < pieceCount; i++) {
+            pieces.push({
+                x: canvas.width * Math.random(),
+                y: -20,
+                r: 5 + Math.random() * 5,
+                d: 5 + Math.random() * 10,
+                color: `hsl(${Math.random() * 360}, 90%, 60%)`,
+                tilt: Math.random() * 10 - 5,
+                tiltAngle: 0,
+                tiltAngleIncrement: Math.random() * 0.1 + 0.05,
+                velocity: { x: Math.random() * 6 - 3, y: Math.random() * 5 + 2 }
+            });
+        }
+    }
+    function update() {
+        for (let i = pieces.length - 1; i >= 0; i--) {
+            const p = pieces[i];
+            p.y += p.velocity.y;
+            p.x += p.velocity.x;
+            p.tiltAngle += p.tiltAngleIncrement;
+            p.tilt = Math.sin(p.tiltAngle) * 15;
+            if (p.y > canvas.height) {
+                pieces.splice(i, 1);
+            }
+        }
+    }
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+            ctx.beginPath();
+            ctx.lineWidth = p.r / 2;
+            ctx.strokeStyle = p.color;
+            ctx.moveTo(p.x + p.tilt + p.r, p.y);
+            ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r);
+            ctx.stroke();
+        });
+    }
+    function animate() {
+        if (pieces.length === 0) {
+            cancelAnimationFrame(animationFrameId);
+            canvas.style.display = 'none';
+            return;
+        }
+        update();
+        draw();
+        animationFrameId = requestAnimationFrame(animate);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    return () => {
+        resizeCanvas();
+        createPieces();
+        canvas.style.display = 'block';
+        animate();
+    }
+}
 function setupThemeSwitcher(button) {
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme === 'dark') {
@@ -61,10 +149,13 @@ function saveWorkouts() {
     localStorage.setItem('workouts', JSON.stringify(workouts));
 }
 
-function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGoalButton, resetButton, progressText, progressBar) {
+function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGoalButton, resetButton, progressText, progressBar, triggerConfetti) {
     let waterCount = parseInt(localStorage.getItem('waterCount')) || 0;
     let waterGoal = parseInt(localStorage.getItem('waterGoal')) || 8;
-    function updateDisplay() {
+    function updateDisplay(checkGoal = false) {
+        if (checkGoal && waterCount >= waterGoal && (waterCount - 1 < waterGoal)) {
+            triggerConfetti();
+        }
         countDisplay.textContent = waterCount;
         goalDisplay.textContent = waterGoal;
         const progressPercent = Math.min((waterCount / waterGoal) * 100, 100);
@@ -81,14 +172,14 @@ function setupWaterLogger(logButton, countDisplay, goalDisplay, goalInput, setGo
         if (newGoal && newGoal > 0) {
             waterGoal = newGoal;
             localStorage.setItem('waterGoal', waterGoal);
-            updateDisplay();
+            updateDisplay(true);
             goalInput.value = '';
         }
     });
     logButton.addEventListener('click', () => {
         waterCount++;
         localStorage.setItem('waterCount', waterCount);
-        updateDisplay();       
+        updateDisplay(true);
     });
     resetButton.addEventListener('click', () => {
         waterCount = 0;
@@ -132,19 +223,30 @@ function addWorkoutToList(text, list) {
     newListItem.appendChild(deleteButton);
     list.appendChild(newListItem);
 }
-function setupNotesSection(textarea, saveButton) {
+function setupNotesSection(textarea, saveButton, toast) {
     const savedNotes = localStorage.getItem('dailyNotes') || '';
     textarea.value = savedNotes;
     saveButton.addEventListener('click', () => {
         localStorage.setItem('dailyNotes', textarea.value);
-        alert('Notes saved');
+        if (toast) {
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
     })
 };
-function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, list, clearButton, goalInput, setGoalButton, goalDisplay, progressText, progressBar) {
+function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, list, clearButton, goalInput, setGoalButton, goalDisplay, progressText, progressBar, triggerConfetti) {
     let foodItems = JSON.parse(localStorage.getItem('foodItems')) || [];
     let calorieGoal = parseInt(localStorage.getItem('calorieGoal')) || 2000;
-    function updateDisplay() {
+    function updateDisplay(checkGoal = false) {
         const total = foodItems.reduce((sum, item) => sum + item.calories, 0);
+        if (checkGoal && total >= calorieGoal) {
+            const previousTotal = total - (foodItems[foodItems.length - 1]?.calories || 0);
+            if (previousTotal < calorieGoal) {
+                triggerConfetti();
+            }
+        }
         totalCalDisplay.textContent = total;
         goalDisplay.textContent = calorieGoal;
         const progressPercent = Math.min((total / calorieGoal) * 100, 100);
@@ -158,7 +260,7 @@ function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, li
     function saveFoodItems() {
         localStorage.setItem('foodItems', JSON.stringify(foodItems));
     }
-    function renderFoodList() {
+    function renderFoodList(checkGoal = false) {
         list.innerHTML = '';
         foodItems.forEach((food, index) => {
             const newListItem = document.createElement('li');
@@ -176,14 +278,14 @@ function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, li
             newListItem.appendChild(deleteButton);
             list.appendChild(newListItem);
         });
-        updateDisplay();
+        updateDisplay(checkGoal);
     }
     setGoalButton.addEventListener('click', () => {
         const newGoal = parseInt(goalInput.value);
         if (newGoal && newGoal > 0) {
             calorieGoal = newGoal;
             localStorage.setItem('calorieGoal', calorieGoal);
-            updateDisplay();
+            updateDisplay(true);
             goalInput.value = '';
         }
     });
@@ -194,7 +296,7 @@ function setupCalorieTracker(foodInput, calInput, logButton, totalCalDisplay, li
             foodItems.push({name: foodName, calories: calories});
             foodInput.value = '';
             calInput.value = '';
-            renderFoodList();
+            renderFoodList(true);
             saveFoodItems();
         }
     });
@@ -243,3 +345,4 @@ function setupMoodTracker(optionsContainer, display) {
     });
     updateDisplay();
 }
+
