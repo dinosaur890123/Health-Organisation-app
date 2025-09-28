@@ -1,1 +1,1 @@
-A health organisation app where users can track sleep, mood, water, food etc all in one integrated system.
+A health organisation app where users can track sleep, mood, water, food etc all in one integrated system. Users also have the option of taking daily notes along with their mood to understand how they are going over time, and to self reflect. Users can also set goals, of how much water to drink or calories to consume
